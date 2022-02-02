@@ -8,6 +8,7 @@ namespace SudokuSolver.IO
 {
     class IO_Console : IO.IRead, IO.IWrite
     {
+
         public string Read()
         {
             Console.Write("Enter board string: ");

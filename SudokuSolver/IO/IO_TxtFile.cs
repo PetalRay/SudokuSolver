@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,28 +10,50 @@ namespace SudokuSolver.IO
 {
     class IO_txtFile : IO.IRead, IO.IWrite
     {
+        private string filePath;
 
         public string Read()
         {
-            string path = Get_path();
-            string values = System.IO.File.ReadAllText(path);
+            Get_Path();
+            if (!filePath.Contains(".txt"))
+                throw new Exceptions.InvalidInputException("Invalid file type was given.\nOnly .txt can be read.");
+            string values = System.IO.File.ReadAllText(filePath);
+            Console.WriteLine(values);
             return values;
         }
 
         // Function receives path of file from file explorer
-        public string Get_path()
+        private void Get_Path()
         {
-            OpenFileDialog pick_file = new OpenFileDialog();
-            if (pick_file.ShowDialog() == DialogResult.OK)
-                return pick_file.FileName;
-            return "No Path";
+            Console.WriteLine("Get_path");
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.InitialDirectory = "c:\\";
+            openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            openFileDialog.RestoreDirectory = true;
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                filePath = openFileDialog.FileName;
+            }
+            else
+            {
+                Console.WriteLine("Don't Get path");
+                filePath = "No Path";
+            }
         }
 
 
         public void Write(String outputString)
         {
-
+            SolvedFileName();
+            File.WriteAllText(filePath, outputString);
         }
+
+        private void SolvedFileName()
+        {
+            filePath = filePath.Replace(".txt", "Solved.txt");
+        }
+
 
     }
 }
