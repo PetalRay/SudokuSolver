@@ -18,12 +18,21 @@ namespace SudokuSolver.IO
             if (!filePath.Contains(".txt"))
                 throw new Exceptions.InvalidInputException("Invalid file type was given.\nOnly .txt can be read.");
             string values = System.IO.File.ReadAllText(filePath);
+<<<<<<< HEAD
+=======
+            Console.WriteLine(values);
+>>>>>>> IO
             return values;
         }
 
         // Function receives path of file from file explorer
         private void Get_Path()
         {
+<<<<<<< HEAD
+=======
+            Console.WriteLine("Get_path");
+
+>>>>>>> IO
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.InitialDirectory = "c:\\";
             openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
